@@ -7,6 +7,7 @@ import java.util.ArrayList;
 public class Stack<T> {
 	private ArrayList<T> list;
 	private int numElements = 0;
+	private int kk;
 
 	public Stack() {
 		list = new ArrayList<T>();

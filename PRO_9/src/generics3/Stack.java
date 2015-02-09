@@ -7,7 +7,6 @@ import java.util.ArrayList;
 public class Stack<T> {
 	private ArrayList<T> list;
 	private int numElements = 0;
-	private int kk;
 
 	public Stack() {
 		list = new ArrayList<T>();
@@ -41,7 +40,7 @@ public class Stack<T> {
 	public String toString(){
 		String s="";
 		for (int i = 0;i < list.size();i++){
-			if(i!=list.size()-1SU)
+			if(i!=list.size()-1)
 				s+=list.get(i)+", ";
 			else
 				s+=list.get(i);

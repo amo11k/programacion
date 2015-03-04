@@ -3,14 +3,13 @@ package maps;
 import java.io.*;
 import java.util.*;
 
-import javax.swing.JOptionPane;
-
-public class LastName {
+public class LastNameToCSV {
 
 	public static void main(String[] args) throws IOException {
-
-		Map<String, Integer> map = new HashMap<>();
+		File tmp = new File("LastnameFreqSORTED.csv");
+		Map<String, Integer> map = new TreeMap<>();
 		BufferedReader in = new BufferedReader(new FileReader(args[0]));
+		PrintWriter out = new PrintWriter(new FileWriter(tmp));
 		Scanner scan;
 
 		String line;
@@ -20,16 +19,20 @@ public class LastName {
 				scan.useDelimiter(",");
 				map.put(scan.next(),
 						Integer.valueOf(scan.next().replaceAll("\\.", "")));
+			
 			}
+			Iterator<String> it = map.keySet().iterator();
+			while (it.hasNext()) {
+				String key = it.next();
+				out.print(key+", "+map.get(key)+"\n");
+			}
+			System.out.println("DONE");
+			
 		} finally {
 			in.close();
+			out.close();
+			
 		}
-		String lastname;
-		do{
-			lastname =JOptionPane.showInputDialog(null,"Enter the lastname","Lastname?",JOptionPane.QUESTION_MESSAGE);
-			lastname=lastname.toUpperCase();
-			JOptionPane.showMessageDialog(null,"Frequenci is: "+map.get(lastname), "Result",JOptionPane.INFORMATION_MESSAGE);
-		}while(!lastname.equals(""));
 	}
 
 }

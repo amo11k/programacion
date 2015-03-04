@@ -48,4 +48,9 @@ public class Stack<T> {
 		}
 		return "["+s+"]";
 	}
+	
+	public int getNumElem(){
+		return numElements;
+	}
+	
 }

@@ -27,12 +27,12 @@ public class ZipCode {
 				if (zip.equals(zipcode)) {
 					found = true;
 					if(whatIs.equals("true")){
-						result.append("Código ciudad: "+codigo+"\n");
+						result.append("Codigo ciudad: "+codigo+"\n");
 						result.append("Nombre: "+city+"\n");
 						result.append(zip+"\n");
 						result.append("Street: "+name);
 					}else{
-						result.append("Código pueblo: "+codigo+"\n");
+						result.append("Codigo pueblo: "+codigo+"\n");
 						result.append("Provincia: "+city+"\n");
 						result.append("Postal code"+zip+"\n");
 						result.append("Nombre: "+name);

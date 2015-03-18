@@ -9,10 +9,8 @@ public class Main {
 		System.out.println(StringMatcher.method4("amen"));
 		System.out.println(StringMatcher.method5("amen"));
 		System.out.println(StringMatcher.method6("amen299"));
-		System.out.println(StringMatcher.method7("255.255.255.255"));
-
-		
-
+		System.out.println(StringMatcher.method7("192.168.1.1"));
+		System.out.println(StringMatcher.method8("Hola Mundo"));
 	}
 	
 }

@@ -254,7 +254,7 @@ public class Calculator1 extends JFrame {
 				Pattern pattern = Pattern.compile(",");
 				Matcher matcher = pattern.matcher(textField.getText());
 				if (!matcher.find()) {
-					textField.setText(textField.getText() + ",");
+					textField.setText(textField.getText() + ".");
 				}
 			}
 		});

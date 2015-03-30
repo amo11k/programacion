@@ -44,7 +44,7 @@ public class Calculator1 extends JFrame {
 	private JButton button_12;
 	private JButton button_13;
 	private JButton button_14;
-	private Double accu;
+	private Double accu = 0.0;
 	private int operator;
 	private JLabel lblNewLabel;
 	private JButton btnNewButton_1;
@@ -70,7 +70,7 @@ public class Calculator1 extends JFrame {
 	 */
 	public Calculator1() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 240, 300);
+		setBounds(100, 100, 240, 250);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -96,12 +96,12 @@ public class Calculator1 extends JFrame {
 		JButton btnNewButton = new JButton("1");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(operator == 0){
+				if (operator == 0) {
 					textField.setText("1");
-				}else{
+				} else {
 					textField.setText(textField.getText() + "1");
 				}
-				
+
 			}
 		});
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
@@ -137,7 +137,7 @@ public class Calculator1 extends JFrame {
 		button_2 = new JButton("+");
 		button_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				accu = Double.parseDouble(textField.getText());
+				accu += Double.parseDouble(textField.getText());
 				textField.setText("");
 				operator = 1;
 			}
@@ -324,6 +324,7 @@ public class Calculator1 extends JFrame {
 				String t = String.valueOf(result);
 				textField.setText(t);
 				operator = 0;
+				accu = 0.0;
 			}
 		});
 		GridBagConstraints gbc_button_14 = new GridBagConstraints();
@@ -333,7 +334,7 @@ public class Calculator1 extends JFrame {
 		gbc_button_14.gridx = 0;
 		gbc_button_14.gridy = 5;
 		contentPane.add(button_14, gbc_button_14);
-		
+
 		lblNewLabel = new JLabel("Amo11k Calculator");
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
 		gbc_lblNewLabel.gridwidth = 4;
@@ -341,7 +342,7 @@ public class Calculator1 extends JFrame {
 		gbc_lblNewLabel.gridx = 0;
 		gbc_lblNewLabel.gridy = 7;
 		contentPane.add(lblNewLabel, gbc_lblNewLabel);
-		
+
 		btnNewButton_1 = new JButton("Buy It");
 		GridBagConstraints gbc_btnNewButton_1 = new GridBagConstraints();
 		gbc_btnNewButton_1.gridx = 4;

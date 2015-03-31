@@ -1,3 +1,5 @@
+package Notepad;
+
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.Toolkit;
@@ -73,16 +75,19 @@ public class NoteBlock extends JFrame {
 	 * Create the frame.
 	 */
 	public NoteBlock() {
+		setTitle(Messages.getString("NoteBlock.this.title")); //$NON-NLS-1$
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 
-		JMenu mnFichero = new JMenu("File");
+		JMenu mnFichero = new JMenu(
+				Messages.getString("NoteBlock.mnFichero.text")); //$NON-NLS-1$
 		menuBar.add(mnFichero);
 
-		JMenuItem mntmNuevo = new JMenuItem("New");
+		JMenuItem mntmNuevo = new JMenuItem(
+				Messages.getString("NoteBlock.mntmNuevo.text")); //$NON-NLS-1$
 		mntmNuevo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				txtArea.setText("");
@@ -93,7 +98,8 @@ public class NoteBlock extends JFrame {
 				.getResource("/javax/swing/plaf/metal/icons/ocean/file.gif")));
 		mnFichero.add(mntmNuevo);
 
-		JMenuItem mntmAbrir = new JMenuItem("Open...");
+		JMenuItem mntmAbrir = new JMenuItem(
+				Messages.getString("NoteBlock.mntmAbrir.text")); //$NON-NLS-1$
 		mntmAbrir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -110,7 +116,8 @@ public class NoteBlock extends JFrame {
 								.getResource("/javax/swing/plaf/metal/icons/ocean/directory.gif")));
 		mnFichero.add(mntmAbrir);
 
-		JMenuItem mntmGuardar = new JMenuItem("Save");
+		JMenuItem mntmGuardar = new JMenuItem(
+				Messages.getString("NoteBlock.mntmGuardar.text")); //$NON-NLS-1$
 		mntmGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				save2();
@@ -125,34 +132,21 @@ public class NoteBlock extends JFrame {
 		JSeparator separator = new JSeparator();
 		mnFichero.add(separator);
 
-		JMenuItem mntmSalir = new JMenuItem("Exit");
+		JMenuItem mntmSalir = new JMenuItem(
+				Messages.getString("NoteBlock.mntmSalir.text")); //$NON-NLS-1$
 		mntmSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (modif==true){
-					Object[] options = { "OK", "CANCEL" };
-					int response;
-					JOptionPane.showOptionDialog(null, "Do you want save you changes", "Warning",
-					JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
-					null, options, options[0]);
-					if (response == 0){
-						setDefaultCloseOperation(save2());
-					}
-					
-				}else{
-					WindowEvent wev = new WindowEvent(NoteBlock.this,
-							WindowEvent.WINDOW_CLOSING);
-					Toolkit.getDefaultToolkit().getSystemEventQueue()
-							.postEvent(wev);
-					System.exit(0);
-				}
+				secuExit();
 			}
 		});
 		mnFichero.add(mntmSalir);
 
-		JMenu mnEditar = new JMenu("Edit");
+		JMenu mnEditar = new JMenu(
+				Messages.getString("NoteBlock.mnEditar.text")); //$NON-NLS-1$
 		menuBar.add(mnEditar);
 
-		JMenuItem mntmCopy = new JMenuItem("Copy");
+		JMenuItem mntmCopy = new JMenuItem(
+				Messages.getString("NoteBlock.mntmCopy.text")); //$NON-NLS-1$
 		mntmCopy.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C,
 				InputEvent.CTRL_MASK));
 		mntmCopy.addActionListener(new ActionListener() {
@@ -161,7 +155,8 @@ public class NoteBlock extends JFrame {
 			}
 		});
 
-		JMenuItem mntmSelectAll = new JMenuItem("Select All...");
+		JMenuItem mntmSelectAll = new JMenuItem(
+				Messages.getString("NoteBlock.mntmSelectAll.text")); //$NON-NLS-1$
 		mntmSelectAll.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				txtArea.selectAll();
@@ -179,7 +174,8 @@ public class NoteBlock extends JFrame {
 						.getResource("/com/sun/java/swing/plaf/windows/icons/TreeLeaf.gif")));
 		mnEditar.add(mntmCopy);
 
-		JMenuItem mntmCut = new JMenuItem("Cut");
+		JMenuItem mntmCut = new JMenuItem(
+				Messages.getString("NoteBlock.mntmCut.text")); //$NON-NLS-1$
 		mntmCut.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X,
 				InputEvent.CTRL_MASK));
 		mntmCut.addActionListener(new ActionListener() {
@@ -192,7 +188,8 @@ public class NoteBlock extends JFrame {
 						.getResource("/com/sun/java/swing/plaf/windows/icons/TreeLeaf.gif")));
 		mnEditar.add(mntmCut);
 
-		JMenuItem mntmPaste = new JMenuItem("Paste");
+		JMenuItem mntmPaste = new JMenuItem(
+				Messages.getString("NoteBlock.mntmPaste.text")); //$NON-NLS-1$
 		mntmPaste.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_V,
 				InputEvent.CTRL_MASK));
 		mntmPaste.addActionListener(new ActionListener() {
@@ -206,7 +203,8 @@ public class NoteBlock extends JFrame {
 								.getResource("/com/sun/java/swing/plaf/windows/icons/TreeLeaf.gif")));
 		mnEditar.add(mntmPaste);
 
-		JMenuItem mntmRedo = new JMenuItem("Redo");
+		JMenuItem mntmRedo = new JMenuItem(
+				Messages.getString("NoteBlock.mntmRedo.text")); //$NON-NLS-1$
 		mntmRedo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -220,7 +218,8 @@ public class NoteBlock extends JFrame {
 						.getResource("/com/sun/java/swing/plaf/windows/icons/TreeLeaf.gif")));
 		mnEditar.add(mntmRedo);
 
-		JMenuItem mntmUndo = new JMenuItem("Undo");
+		JMenuItem mntmUndo = new JMenuItem(
+				Messages.getString("NoteBlock.mntmUndo.text")); //$NON-NLS-1$
 		mntmUndo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				undoManager.undo();
@@ -233,7 +232,8 @@ public class NoteBlock extends JFrame {
 						.getResource("/com/sun/java/swing/plaf/windows/icons/TreeLeaf.gif")));
 		mnEditar.add(mntmUndo);
 
-		JMenuItem mntmSearch = new JMenuItem("Search");
+		JMenuItem mntmSearch = new JMenuItem(
+				Messages.getString("NoteBlock.mntmSearch.text")); //$NON-NLS-1$
 		mntmSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Search search = new Search(NoteBlock.this);
@@ -250,10 +250,11 @@ public class NoteBlock extends JFrame {
 								.getResource("/com/sun/java/swing/plaf/windows/icons/TreeLeaf.gif")));
 		mnEditar.add(mntmSearch);
 
-		JMenu mnAyuda = new JMenu("Help");
+		JMenu mnAyuda = new JMenu(Messages.getString("NoteBlock.mnAyuda.text")); //$NON-NLS-1$
 		menuBar.add(mnAyuda);
 
-		JMenuItem mntmAbout = new JMenuItem("About");
+		JMenuItem mntmAbout = new JMenuItem(
+				Messages.getString("NoteBlock.mntmAbout.text")); //$NON-NLS-1$
 		mntmAbout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				DialogAbauto jframe2 = new DialogAbauto();
@@ -271,7 +272,8 @@ public class NoteBlock extends JFrame {
 		JToolBar toolBar = new JToolBar();
 		contentPane.add(toolBar, BorderLayout.NORTH);
 
-		JButton btnGuardar = new JButton("Save");
+		JButton btnGuardar = new JButton(
+				Messages.getString("NoteBlock.btnGuardar.text")); //$NON-NLS-1$
 		btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -288,7 +290,8 @@ public class NoteBlock extends JFrame {
 								.getResource("/javax/swing/plaf/metal/icons/ocean/directory.gif")));
 		toolBar.add(btnGuardar);
 
-		JButton btnCargar = new JButton("Load");
+		JButton btnCargar = new JButton(
+				Messages.getString("NoteBlock.btnCargar.text")); //$NON-NLS-1$
 		btnCargar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -329,7 +332,7 @@ public class NoteBlock extends JFrame {
 			}
 		});
 
-		txtArea.setText("");
+		txtArea.setText(Messages.getString("NoteBlock.txtArea.text")); //$NON-NLS-1$
 		contentPane.add(txtArea, BorderLayout.CENTER);
 	}
 
@@ -413,4 +416,37 @@ public class NoteBlock extends JFrame {
 	public void SetTextArea() {
 
 	}
+
+	public void secuExit() {
+		if (modif == true) {
+			Object[] options = { "YES", "NO" };
+
+			int response = JOptionPane.showOptionDialog(null,
+					"Do you want save you changes", "Warning",
+					JOptionPane.DEFAULT_OPTION,
+					JOptionPane.WARNING_MESSAGE, null, options,
+					options[0]);
+			
+			switch (response) {
+			case 0:
+				save2();
+				break;
+			case 1:
+				WindowEvent wev = new WindowEvent(NoteBlock.this,
+						WindowEvent.WINDOW_CLOSING);
+				Toolkit.getDefaultToolkit().getSystemEventQueue()
+						.postEvent(wev);
+				System.exit(0);
+				break;
+			}
+
+		} else {
+			WindowEvent wev = new WindowEvent(NoteBlock.this,
+					WindowEvent.WINDOW_CLOSING);
+			Toolkit.getDefaultToolkit().getSystemEventQueue()
+					.postEvent(wev);
+			System.exit(0);
+		}
+	}
+	
 }

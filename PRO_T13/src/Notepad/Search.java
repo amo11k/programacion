@@ -26,7 +26,7 @@ public class Search extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Search(NoteBlock note) {
+	public Search(TXTEditor note) {
 		super();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 300, 150);

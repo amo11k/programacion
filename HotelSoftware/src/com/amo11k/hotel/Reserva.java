@@ -37,6 +37,7 @@ public class Reserva extends JFrame {
 	// private JCalendar calendar;
 	private JSpinField spinInit;
 	private JSpinField spinFin;
+	public int c;
 	public double precio;
 	public final double TARIFA = 9.34;
 
@@ -143,7 +144,7 @@ public class Reserva extends JFrame {
 	}
 
 	public void rent() throws IOException {
-		int c = comboBox.getSelectedIndex();
+		c = comboBox.getSelectedIndex();
 		java.util.Date date = dateChooser.getDate();
 		precio= (spinInit.getValue()-spinFin.getValue())*TARIFA*(c+1);
 		
@@ -163,7 +164,7 @@ public class Reserva extends JFrame {
 			out.write(date.toString() + ";");
 			out.write("Hora de inicio " +spinInit.getValue()+":00;");
 			out.write("Hora fin "+spinFin.getValue()+":00;");
-			out.write(precio+"€;");
+			out.write("Precio "+precio+"€;");
 			out.write("\n");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

@@ -17,10 +17,13 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
 
 public class Visualizador extends JFrame {
 
 	private JPanel pane;
+	private JTextArea txtVisu;
+	 
 
 	/**
 	 * Create the frame.
@@ -33,9 +36,9 @@ public class Visualizador extends JFrame {
 		setContentPane(pane);
 		pane.setLayout(null);
 		
-		JTextArea txtVisu = new JTextArea();
+		txtVisu = new JTextArea();
 		txtVisu.setEditable(false);
-		txtVisu.setBounds(22, 11, 284, 240);
+		txtVisu.setBounds(29, 11, 284, 240);
 		pane.add(txtVisu);
 		
 		JButton btnLeer = new JButton("LEER");
@@ -82,8 +85,8 @@ public class Visualizador extends JFrame {
 		btnSalir.setBounds(335, 186, 89, 23);
 		pane.add(btnSalir);
 		
-		JScrollBar scrollBar = new JScrollBar();
-		scrollBar.setBounds(308, 11, 17, 240);
-		pane.add(scrollBar);
+		JScrollPane scrollPane = new JScrollPane(txtVisu);
+		scrollPane.setBounds(29, 11, 298, 248);
+		pane.add(scrollPane);
 	}
 }

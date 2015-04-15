@@ -10,8 +10,6 @@ public class Board extends JPanel {
 	public final int WIDTH = 10;
 	
 	
-	
-	
 	public Board(){
 		
 	}

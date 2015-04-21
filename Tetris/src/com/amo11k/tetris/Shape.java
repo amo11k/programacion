@@ -1,8 +1,8 @@
 package com.amo11k.tetris;
 
 public class Shape {
-	private Tetrominos pieceShape;
-	private int coords[][];
+	protected Tetrominos pieceShape;
+	protected int coords[][];
 
 	// coords[index][coor]
 	// index is a number from 0 to 3 that represents each square block of the
@@ -14,12 +14,14 @@ public class Shape {
 			{ { 0, 0 }, { 0, 0 }, { 0, 0 }, { 0, 0 } },
 			{ { 0, -1 }, { 0, 0 }, { -1, 0 }, { -1, 1 } },
 			{ { 0, -1 }, { 0, 0 }, { 1, 0 }, { 1, 1 } },
+			{ { 0, -1 }, { 0, 0 }, { 0, 1 }, { 0, 2 } },
 			{ { -1, 0 }, { 0, 0 }, { 1, 0 }, { 0, 1 } },
 			{ { 0, 0 }, { 1, 0 }, { 0, 1 }, { 1, 1 } },
-			{ { -1, -1 }, { 0, 1 }, { 0, 0 }, { 0, 1 } } };
+			{ { -1, -1 }, { 0, -1 }, { 0, 0 }, { 0, 1 } },
+			{ { 1, -1 }, { 0, -1 }, { 0, 0 }, { 0, 1 } } };
 
 	public Shape() {
-
+		coords = new int[4][2];
 	}
 
 	public void setShape(Tetrominos shapeType) {
@@ -55,7 +57,7 @@ public class Shape {
 	}
 
 	public void SetRandomShape() {
-		int random = ((int) Math.random() * 7) + 1;
+		int random = (int) (Math.random() * 7) + 1;
 		Tetrominos[] array = Tetrominos.values();
 		setShape(array[random]);
 	}
@@ -71,13 +73,13 @@ public class Shape {
 		}
 		return s;
 	}
-	
-	public Shape rotateRigth(){
+
+	public Shape rotateRigth() {
 		Shape s = new Shape();
 		s.setShape(pieceShape);
-		for (int i = 0; i < 4; i++){
+		for (int i = 0; i < 4; i++) {
 			int x = getY(i);
-			int y = -1*(getX(i));
+			int y = -1 * (getX(i));
 			coords[i][0] = x;
 			coords[i][1] = y;
 		}

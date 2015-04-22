@@ -126,20 +126,4 @@ public class Shape {
 		}
 		return s;
 	}
-
-	public static boolean tryToMove(Shape piece, int colum, int row) {
-
-		if (row + piece.maxY() > Board.ROWS - 1) {
-			return false;
-		}
-		if (colum + piece.maxX() > Board.COLUMS - 1) {
-			return false;
-		}
-		if (colum + piece.minX() < 0) {
-			return false;
-		}
-		return true;
-
-	}
-
 }

@@ -11,8 +11,8 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class Board extends JPanel {
-	public static final int ROWS = 22;
-	public static final int COLUMS = 10;
+	public final int ROWS = 22;
+	public final int COLUMS = 10;
 	public Shape currentShape;
 	public int currentCol;
 	public int currentRow;
@@ -26,28 +26,28 @@ public class Board extends JPanel {
 		public void keyPressed(KeyEvent e) {
 			switch (e.getKeyCode()) {
 			case KeyEvent.VK_LEFT:
-				if (Shape.tryToMove(currentShape, currentCol - 1, currentRow))
+				if (tryToMove(currentShape, currentCol - 1, currentRow))
 					currentCol--;
 				break;
 			case KeyEvent.VK_RIGHT:
-				if (Shape.tryToMove(currentShape, currentCol + 1, currentRow))
+				if (tryToMove(currentShape, currentCol + 1, currentRow))
 					currentCol++;
 				break;
 			case KeyEvent.VK_UP:
-				
+
 				break;
 			case KeyEvent.VK_DOWN:
-				if (Shape.tryToMove(currentShape, currentCol, currentRow + 1))
+				if (tryToMove(currentShape, currentCol, currentRow + 1))
 					currentRow++;
 				break;
 			case KeyEvent.VK_Q:
 				Shape s = currentShape.rotateRigth();
-				if (Shape.tryToMove(s, currentCol, currentRow))
+				if (tryToMove(s, currentCol, currentRow))
 					currentShape = s;
 				break;
 			case KeyEvent.VK_E:
 				Shape r = currentShape.rotateLeft();
-				if (Shape.tryToMove(r, currentCol, currentRow))
+				if (tryToMove(r, currentCol, currentRow))
 					currentShape = r;
 			default:
 				break;
@@ -72,7 +72,7 @@ public class Board extends JPanel {
 	}
 
 	private void drawSquare(Graphics g, int row, int col, Tetrominos shape) {
-		Color colors[] = { new Color(0, 0, 0), new Color(204, 102, 102),
+		Color colors[] = { new Color(5, 25, 88), new Color(204, 102, 102),
 				new Color(102, 204, 102), new Color(102, 102, 204),
 				new Color(204, 204, 102), new Color(204, 102, 204),
 				new Color(102, 204, 204), new Color(218, 170, 0) };
@@ -103,6 +103,7 @@ public class Board extends JPanel {
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		drawBoard(g);
+
 		drawCurrentShape(g);
 	}
 
@@ -132,10 +133,11 @@ public class Board extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (Shape.tryToMove(currentShape, currentCol, currentRow + 1)) {
+				if (tryToMove(currentShape, currentCol, currentRow + 1)) {
 					currentRow++;
 				} else {
-					movePieceToBoard(currentShape,matrix,currentRow,currentCol);
+					movePieceToBoard(currentShape, matrix, currentRow,
+							currentCol);
 					currentCol = 5;
 					currentRow = 1;
 					currentShape = new Shape();
@@ -148,7 +150,8 @@ public class Board extends JPanel {
 		timer.start();
 	}
 
-	public void movePieceToBoard(Shape currentShape, Tetrominos[][] matrix, int row, int colum) {
+	public void movePieceToBoard(Shape currentShape, Tetrominos[][] matrix,
+			int row, int colum) {
 		int newRow, newColum;
 		for (int i = 0; i < 4; i++) {
 			newRow = currentRow + currentShape.getY(i);
@@ -160,4 +163,17 @@ public class Board extends JPanel {
 		}
 	}
 
+	public boolean tryToMove(Shape piece, int colum, int row) {
+
+		if (row + piece.maxY() > ROWS - 1) {
+			return false;
+		}
+		if (colum + piece.maxX() > COLUMS - 1) {
+			return false;
+		}
+		if (colum + piece.minX() < 0) {
+			return false;
+		}
+		return true;
+	}
 }

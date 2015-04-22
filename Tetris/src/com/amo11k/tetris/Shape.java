@@ -3,6 +3,7 @@ package com.amo11k.tetris;
 public class Shape {
 	protected Tetrominos pieceShape;
 	protected int coords[][];
+	public static boolean can = true;
 
 	// coords[index][coor]
 	// index is a number from 0 to 3 that represents each square block of the
@@ -52,6 +53,46 @@ public class Shape {
 		return y;
 	}
 
+	public int minX() {
+		int c = 5;
+		for (int i = 0; i < 4; i++) {
+			if (c > getX(i)) {
+				c = getX(i);
+			}
+		}
+		return c;
+	}
+
+	public int minY() {
+		int c = 5;
+		for (int i = 0; i < 4; i++) {
+			if (c > getY(i)) {
+				c = getY(i);
+			}
+		}
+		return c;
+	}
+
+	public int maxY() {
+		int c = -5;
+		for (int i = 0; i < 4; i++) {
+			if (c < getY(i)) {
+				c = getY(i);
+			}
+		}
+		return c;
+	}
+
+	public int maxX() {
+		int c = -5;
+		for (int i = 0; i < 4; i++) {
+			if (c < getX(i)) {
+				c = getX(i);
+			}
+		}
+		return c;
+	}
+
 	public Tetrominos getShape() {
 		return pieceShape;
 	}
@@ -66,10 +107,10 @@ public class Shape {
 		Shape s = new Shape();
 		s.setShape(pieceShape);
 		for (int i = 0; i < 4; i++) {
-			int x = -1 * (getY(i));
+			int x = -1 * getY(i);
 			int y = getX(i);
-			coords[i][0] = x;
-			coords[i][1] = y;
+			s.coords[i][0] = x;
+			s.coords[i][1] = y;
 		}
 		return s;
 	}
@@ -79,11 +120,26 @@ public class Shape {
 		s.setShape(pieceShape);
 		for (int i = 0; i < 4; i++) {
 			int x = getY(i);
-			int y = -1 * (getX(i));
-			coords[i][0] = x;
-			coords[i][1] = y;
+			int y = -1 * getX(i);
+			s.coords[i][0] = x;
+			s.coords[i][1] = y;
 		}
 		return s;
+	}
+
+	public static boolean tryToMove(Shape piece, int colum, int row) {
+
+		if (row + piece.maxY() > Board.ROWS - 1) {
+			return false;
+		}
+		if (colum + piece.maxX() > Board.COLUMS - 1) {
+			return false;
+		}
+		if (colum + piece.minX() < 0) {
+			return false;
+		}
+		return true;
+
 	}
 
 }

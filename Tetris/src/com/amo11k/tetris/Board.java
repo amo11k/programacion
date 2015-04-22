@@ -11,32 +11,44 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class Board extends JPanel {
-	public final int HEIGHT = 22;
-	public final int WIDTH = 10;
+	public static final int ROWS = 22;
+	public static final int COLUMS = 10;
 	public Shape currentShape;
 	public int currentCol;
 	public int currentRow;
-	public Tetrominos[][] matrix = new Tetrominos[HEIGHT][WIDTH];
+	public Tetrominos[][] matrix = new Tetrominos[ROWS][COLUMS];
 	private Timer timer;
 	public MyKeyAdapter keyAdapter;
+	public boolean gameOver;
 
 	class MyKeyAdapter extends KeyAdapter {
 		@Override
 		public void keyPressed(KeyEvent e) {
 			switch (e.getKeyCode()) {
 			case KeyEvent.VK_LEFT:
-				currentCol--;
+				if (Shape.tryToMove(currentShape, currentCol - 1, currentRow))
+					currentCol--;
 				break;
 			case KeyEvent.VK_RIGHT:
-				currentCol++;
+				if (Shape.tryToMove(currentShape, currentCol + 1, currentRow))
+					currentCol++;
 				break;
 			case KeyEvent.VK_UP:
-				currentShape = currentShape.rotateLeft();
-				repaint();
+				
 				break;
 			case KeyEvent.VK_DOWN:
-				currentRow++;
+				if (Shape.tryToMove(currentShape, currentCol, currentRow + 1))
+					currentRow++;
 				break;
+			case KeyEvent.VK_Q:
+				Shape s = currentShape.rotateRigth();
+				if (Shape.tryToMove(s, currentCol, currentRow))
+					currentShape = s;
+				break;
+			case KeyEvent.VK_E:
+				Shape r = currentShape.rotateLeft();
+				if (Shape.tryToMove(r, currentCol, currentRow))
+					currentShape = r;
 			default:
 				break;
 			}
@@ -45,8 +57,8 @@ public class Board extends JPanel {
 	}
 
 	public Board() {
-		for (int i = 0; i < HEIGHT; i++) {
-			for (int j = 0; j < WIDTH; j++) {
+		for (int i = 0; i < ROWS; i++) {
+			for (int j = 0; j < COLUMS; j++) {
 				matrix[i][j] = Tetrominos.NoShape;
 			}
 		}
@@ -80,11 +92,11 @@ public class Board extends JPanel {
 	}
 
 	private int squareHeight() {
-		return this.getHeight() / HEIGHT;
+		return this.getHeight() / ROWS;
 	}
 
 	private int squareWidth() {
-		return this.getWidth() / WIDTH;
+		return this.getWidth() / COLUMS;
 	}
 
 	@Override
@@ -103,8 +115,8 @@ public class Board extends JPanel {
 	}
 
 	private void drawBoard(Graphics g) {
-		for (int i = 0; i < HEIGHT; i++) {
-			for (int j = 0; j < WIDTH; j++) {
+		for (int i = 0; i < ROWS; i++) {
+			for (int j = 0; j < COLUMS; j++) {
 				drawSquare(g, i, j, matrix[i][j]);
 			}
 		}
@@ -114,19 +126,38 @@ public class Board extends JPanel {
 	public void init() {
 		keyAdapter = new MyKeyAdapter();
 		addKeyListener(keyAdapter);
-		// gameOver = false;
+		gameOver = false;
 
 		timer = new Timer(500, new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				currentRow++;
+				if (Shape.tryToMove(currentShape, currentCol, currentRow + 1)) {
+					currentRow++;
+				} else {
+					movePieceToBoard(currentShape,matrix,currentRow,currentCol);
+					currentCol = 5;
+					currentRow = 1;
+					currentShape = new Shape();
+					currentShape.SetRandomShape();
+				}
 				repaint();
 			}
 
 		});
 		timer.start();
+	}
+
+	public void movePieceToBoard(Shape currentShape, Tetrominos[][] matrix, int row, int colum) {
+		int newRow, newColum;
+		for (int i = 0; i < 4; i++) {
+			newRow = currentRow + currentShape.getY(i);
+			newColum = currentCol + currentShape.getX(i);
+			if ((newRow >= 0) && (newRow < ROWS) && (newColum >= 0)
+					&& (newColum < COLUMS)) {
+				matrix[newRow][newColum] = currentShape.getShape();
+			}
+		}
 	}
 
 }

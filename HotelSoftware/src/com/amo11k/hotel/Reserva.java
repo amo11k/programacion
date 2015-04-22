@@ -11,6 +11,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Date;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -23,7 +24,6 @@ import javax.swing.border.EmptyBorder;
 
 import com.toedter.calendar.JDateChooser;
 import com.toedter.components.JSpinField;
-import java.awt.BorderLayout;
 
 public class Reserva extends JFrame {
 
@@ -33,13 +33,13 @@ public class Reserva extends JFrame {
 	protected FileWriter out;
 	protected static File hist = new File("Historial Reservas");
 	protected BufferedReader in;
-
-	// private JCalendar calendar;
-	private JSpinField spinInit;
+	public java.util.Date date;
+	public Date hoy;
+	public JSpinField spinInit;
 	private JSpinField spinFin;
 	public int c;
 	public double precio;
-	public final double TARIFA = 9.34;
+	public final double TARIFA = 5.15;
 
 	/**
 	 * Launch the application.
@@ -62,6 +62,7 @@ public class Reserva extends JFrame {
 	 */
 	public Reserva() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setTitle("Realizar reserva");
 		setBounds(100, 100, 450, 300);
 		pane = new JPanel();
 		pane.setBackground(new Color(205, 133, 63));
@@ -72,7 +73,7 @@ public class Reserva extends JFrame {
 		JLabel ttlReserva = new JLabel("REALIZE SU RESERVA");
 		ttlReserva.setFont(new Font("Andalus", Font.PLAIN, 18));
 		ttlReserva.setHorizontalAlignment(SwingConstants.CENTER);
-		ttlReserva.setBounds(105, 11, 203, 38);
+		ttlReserva.setBounds(125, 12, 203, 38);
 		pane.add(ttlReserva);
 
 		comboBox = new JComboBox();
@@ -96,10 +97,12 @@ public class Reserva extends JFrame {
 		pane.add(lblFecha);
 
 		JButton btnConfirm = new JButton("CONFIRMAR");
+		btnConfirm.setFont(new Font("Dialog", Font.BOLD, 10));
 		btnConfirm.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					rent();
+					dispose();
 				} catch (FileNotFoundException e1) {
 					// TODO Auto-generated catch block
 					System.out.println(hist);
@@ -120,58 +123,104 @@ public class Reserva extends JFrame {
 		});
 		btnCancel.setBounds(283, 228, 107, 23);
 		pane.add(btnCancel);
-		
+
 		JLabel horaInit = new JLabel("Hora de reserva:");
 		horaInit.setToolTipText("Escoga la hora de inicio de su reserva");
 		horaInit.setBounds(41, 156, 136, 15);
 		pane.add(horaInit);
-		
+
 		spinInit = new JSpinField();
 		spinInit.setBounds(331, 152, 59, 19);
 		spinInit.setMinimum(0);
 		spinInit.setMaximum(24);
 		pane.add(spinInit);
-		
+
 		spinFin = new JSpinField();
 		spinFin.setBounds(331, 183, 59, 19);
 		spinFin.setMinimum(0);
 		spinFin.setMaximum(24);
 		pane.add(spinFin);
-		
+
 		JLabel horaFIn = new JLabel("Hora de fin:");
-		horaFIn.setBounds(39, 187, 70, 15);
+		horaFIn.setBounds(39, 187, 138, 15);
 		pane.add(horaFIn);
 	}
 
 	public void rent() throws IOException {
-		c = comboBox.getSelectedIndex();
-		java.util.Date date = dateChooser.getDate();
-		precio= (spinInit.getValue()-spinFin.getValue())*TARIFA*(c+1);
-		
-		
-		if (Habitacion.list.contains(c) == true) {
-			Habitacion.list.remove(c);
-			System.out.println("DONE");
+		Date hoy = new Date();
+		date = dateChooser.getDate();
+		if (date.before(hoy)) {
+			Error error = new Error();
+			error.setVisible(true);
+		}else{
+			precio = getPrice();
+			write();
 		}
+		/*if (spinInit.getValue() > spinFin.getValue()) {
+			precio = (spinInit.getValue() - spinFin.getValue()) * TARIFA
+					* (c + 1);
+		} else {
+			precio = (spinFin.getValue() - spinInit.getValue()) * TARIFA
+					* (c + 1);
+		}*/
 
-		try {
+		
+
+		/*try {
 			out = new FileWriter(hist, true);
 			in = new BufferedReader(new FileReader(hist));
-			int n = 0;			
+			int n = 0;
 			n = ((int) (Math.random() * 9999));
 			out.write(n + ";");
 			out.write("TYPE " + c + ";");
 			out.write(date.toString() + ";");
-			out.write("Hora de inicio " +spinInit.getValue()+":00;");
-			out.write("Hora fin "+spinFin.getValue()+":00;");
-			out.write("Precio "+precio+"€;");
+			out.write("Hora de inicio " + spinInit.getValue() + ":00;");
+			out.write("Hora fin " + spinFin.getValue() + ":00;");
+			out.write("Precio " + precio + "€;");
 			out.write("\n");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			System.out.println("ERRO ARCHIVO");
 		} finally {
 			out.close();
+		}*/
+	}
+
+	public void write() {
+		try {
+			out = new FileWriter(hist, true);
+			in = new BufferedReader(new FileReader(hist));
+			int n = 0;
+			n = ((int) (Math.random() * 9999));
+			out.write(n + ";");
+			out.write("TYPE " + c + ";");
+			out.write(date.toString() + ";");
+			out.write("Hora de inicio " + spinInit.getValue() + ":00;");
+			out.write("Hora fin " + spinFin.getValue() + ":00;");
+			out.write("Precio " + precio + "€;");
+			out.write("\n");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			System.out.println("ERROR ARCHIVO");
+		}finally{
+			try {
+				out.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
+	
+	public double getPrice(){
+		c = comboBox.getSelectedIndex();
+		if (spinInit.getValue() > spinFin.getValue()) {
+			precio = (spinInit.getValue() - spinFin.getValue()) * TARIFA
+					* (c + 1);
+		} else {
+			precio = (spinFin.getValue() - spinInit.getValue()) * TARIFA
+					* (c + 1);
+		}
+		return precio;
+	}
 }
-

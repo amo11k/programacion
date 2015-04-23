@@ -50,7 +50,7 @@ public class AppHotel extends JFrame {
 	 * Create the frame.
 	 */
 	public AppHotel() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage("/home/alumnes/1CFSL/alu53381650f/git/programacion/HotelSoftware/src/27938.png"));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(AppHotel.class.getResource("/com/amo11k/hotel/img/27938.png")));
 		setForeground(Color.RED);
 		setTitle("Amo11k Hotel");
 		setFont(new Font("Andalus", Font.PLAIN, 16));
@@ -70,7 +70,7 @@ public class AppHotel extends JFrame {
 				frameReserva.setLocationRelativeTo(null);
 			}
 		});
-		btnReservar.setBounds(177, 430, 150, 80);
+		btnReservar.setBounds(102, 430, 150, 80);
 		pane.add(btnReservar);
 		
 		JButton btnVisor = new JButton("VISUALIZAR");
@@ -81,14 +81,30 @@ public class AppHotel extends JFrame {
 				visu.setLocationRelativeTo(null);
 			}
 		});
-		btnVisor.setBounds(500, 430, 162, 80);
+		btnVisor.setBounds(563, 430, 162, 80);
 		pane.add(btnVisor);
 		
+		JButton cat = new JButton("Ver CAT\u00C1LOGO");
+		cat.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Catalogo cat = new Catalogo();
+				cat.setVisible(true);
+				cat.setLocationRelativeTo(null);
+			}
+		});
+		cat.setToolTipText("Pulsa aqui para ver nuestro catalogo de habitaciones");
+		cat.setForeground(new Color(0, 0, 0));
+		cat.setBackground(new Color(144, 238, 144));
+		cat.setBounds(327, 442, 150, 56);
+		pane.add(cat);
+		
 		JMenuBar menuBar = new JMenuBar();
-		menuBar.setBounds(24, 0, 762, 21);
+		menuBar.setBackground(new Color(255, 240, 245));
+		menuBar.setBounds(0, 0, 786, 21);
 		pane.add(menuBar);
 		
 		JMenu mnArchivo = new JMenu("Archivo");
+		mnArchivo.setForeground(new Color(0, 0, 0));
 		menuBar.add(mnArchivo);
 		
 		JMenuItem mntmSalir = new JMenuItem("Salir");
@@ -100,19 +116,17 @@ public class AppHotel extends JFrame {
 		mnArchivo.add(mntmSalir);
 		
 		JMenu mnAbout = new JMenu("About");
+		mnAbout.setForeground(new Color(0, 0, 0));
 		menuBar.add(mnAbout);
 		
 		JMenuItem mntmAmokHotel = new JMenuItem("Amo11k Hotel");
 		mnAbout.add(mntmAmokHotel);
 		
-		JMenuItem mntmTarifas = new JMenuItem("Tarifas");
-		menuBar.add(mntmTarifas);
-		
 		JLabel ttlPane = new JLabel("Hotel SHHH");
-		ttlPane.setIcon(new ImageIcon("/home/alumnes/1CFSL/alu53381650f/git/programacion/HotelSoftware/src/16-hotel-las-palmas-sercotel-cristina-las-palmas-habitacion.jpg"));
+		ttlPane.setIcon(new ImageIcon(AppHotel.class.getResource("/com/amo11k/hotel/img/16-hotel-las-palmas-sercotel-cristina-las-palmas-habitacion.jpg")));
 		ttlPane.setFont(new Font("Andalus", Font.ITALIC, 18));
 		ttlPane.setHorizontalAlignment(SwingConstants.CENTER);
-		ttlPane.setBounds(0, 0, 866, 589);
+		ttlPane.setBounds(0, 0, 786, 560);
 		pane.add(ttlPane);
 	}
 }

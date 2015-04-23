@@ -152,38 +152,14 @@ public class Reserva extends JFrame {
 		if (date.before(hoy)) {
 			Error error = new Error();
 			error.setVisible(true);
+			error.setLocationRelativeTo(null);
 		}else{
 			precio = getPrice();
 			write();
+			Dialog confim = new Dialog();
+			confim.setVisible(true);
+			confim.setLocationRelativeTo(null);
 		}
-		/*if (spinInit.getValue() > spinFin.getValue()) {
-			precio = (spinInit.getValue() - spinFin.getValue()) * TARIFA
-					* (c + 1);
-		} else {
-			precio = (spinFin.getValue() - spinInit.getValue()) * TARIFA
-					* (c + 1);
-		}*/
-
-		
-
-		/*try {
-			out = new FileWriter(hist, true);
-			in = new BufferedReader(new FileReader(hist));
-			int n = 0;
-			n = ((int) (Math.random() * 9999));
-			out.write(n + ";");
-			out.write("TYPE " + c + ";");
-			out.write(date.toString() + ";");
-			out.write("Hora de inicio " + spinInit.getValue() + ":00;");
-			out.write("Hora fin " + spinFin.getValue() + ":00;");
-			out.write("Precio " + precio + "€;");
-			out.write("\n");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			System.out.println("ERRO ARCHIVO");
-		} finally {
-			out.close();
-		}*/
 	}
 
 	public void write() {

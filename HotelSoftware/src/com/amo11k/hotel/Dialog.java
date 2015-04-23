@@ -10,10 +10,14 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 public class Dialog extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
+	public JTextField textField;
+	public double prex;
 
 	/**
 	 * Create the dialog.
@@ -27,6 +31,15 @@ public class Dialog extends JDialog {
 		{
 			JLabel lblReservaConfirmada = new JLabel("Reserva Confirmada");
 			contentPanel.add(lblReservaConfirmada);
+		}
+		{
+			textField = new JTextField();
+			textField.setHorizontalAlignment(SwingConstants.CENTER);
+			textField.setEditable(false);
+			contentPanel.add(textField);
+			textField.setColumns(10);
+			textField.setText("€/h");
+			
 		}
 		{
 			JPanel buttonPane = new JPanel();

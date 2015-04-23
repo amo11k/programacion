@@ -35,7 +35,7 @@ public class AppHotel extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Habitacion hotelShhh = new Habitacion();
+					Room<Integer, Enum> hotelShhh = new Room<>();
 					AppHotel frame = new AppHotel();
 					frame.setVisible(true);
 					frame.setLocationRelativeTo(null);
@@ -50,10 +50,11 @@ public class AppHotel extends JFrame {
 	 * Create the frame.
 	 */
 	public AppHotel() {
+		setType(Type.POPUP);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(AppHotel.class.getResource("/com/amo11k/hotel/img/27938.png")));
 		setForeground(Color.RED);
 		setTitle("Amo11k Hotel");
-		setFont(new Font("Andalus", Font.PLAIN, 16));
+		setFont(new Font("Bebas", Font.PLAIN, 16));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 800, 600);
 		pane = new JPanel();
@@ -70,7 +71,7 @@ public class AppHotel extends JFrame {
 				frameReserva.setLocationRelativeTo(null);
 			}
 		});
-		btnReservar.setBounds(102, 430, 150, 80);
+		btnReservar.setBounds(10, 430, 150, 80);
 		pane.add(btnReservar);
 		
 		JButton btnVisor = new JButton("VISUALIZAR");
@@ -81,7 +82,7 @@ public class AppHotel extends JFrame {
 				visu.setLocationRelativeTo(null);
 			}
 		});
-		btnVisor.setBounds(563, 430, 162, 80);
+		btnVisor.setBounds(624, 430, 150, 80);
 		pane.add(btnVisor);
 		
 		JButton cat = new JButton("Ver CAT\u00C1LOGO");
@@ -95,7 +96,7 @@ public class AppHotel extends JFrame {
 		cat.setToolTipText("Pulsa aqui para ver nuestro catalogo de habitaciones");
 		cat.setForeground(new Color(0, 0, 0));
 		cat.setBackground(new Color(144, 238, 144));
-		cat.setBounds(327, 442, 150, 56);
+		cat.setBounds(327, 493, 150, 56);
 		pane.add(cat);
 		
 		JMenuBar menuBar = new JMenuBar();

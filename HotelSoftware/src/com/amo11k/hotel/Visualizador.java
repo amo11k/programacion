@@ -18,6 +18,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
+import java.awt.Toolkit;
 
 public class Visualizador extends JFrame {
 
@@ -29,6 +30,9 @@ public class Visualizador extends JFrame {
 	 * Create the frame.
 	 */
 	public Visualizador() {
+		setResizable(false);
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Visualizador.class.getResource("/com/amo11k/hotel/img/27938.png")));
+		setTitle("Historial de Reservas");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 800, 550);
 		pane = new JPanel();

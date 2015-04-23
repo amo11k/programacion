@@ -15,6 +15,7 @@ import javax.swing.ImageIcon;
 import java.awt.Color;
 import javax.swing.JTextPane;
 import java.awt.SystemColor;
+import java.awt.Toolkit;
 
 public class Catalogo extends JFrame {
 	private JLabel foto;
@@ -28,6 +29,9 @@ public class Catalogo extends JFrame {
 	 * Create the frame.
 	 */
 	public Catalogo() {
+		setResizable(false);
+		setTitle("Catálogo de Tarifas");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Catalogo.class.getResource("/com/amo11k/hotel/img/27938.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 800, 600);
 		contentPane = new JPanel();
@@ -48,7 +52,7 @@ public class Catalogo extends JFrame {
 		foto.setIcon(new ImageIcon(Catalogo.class.getResource("/com/amo11k/hotel/img/caesars_palace_lasvegas_hotel_53331-800x600.jpg")));
 		foto.setFont(new Font("Tahoma", Font.PLAIN, 64));
 		foto.setHorizontalAlignment(SwingConstants.CENTER);
-		foto.setBounds(10, 11, 774, 549);
+		foto.setBounds(10, 11, 808, 549);
 		contentPane.add(foto);
 		
 		init();

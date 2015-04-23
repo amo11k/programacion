@@ -15,6 +15,9 @@ import java.text.DecimalFormat;
 
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import java.awt.Toolkit;
+import java.awt.Window.Type;
+import java.awt.Font;
 
 public class Dialog extends JDialog {
 
@@ -26,6 +29,10 @@ public class Dialog extends JDialog {
 	 * Create the dialog.
 	 */
 	public Dialog() {
+		setFont(new Font("Dialog", Font.PLAIN, 10));
+		setTitle("Reserva confirmada");
+		setType(Type.POPUP);
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Dialog.class.getResource("/com/amo11k/hotel/img/27938.png")));
 		setBounds(100, 100, 200, 200);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setLayout(new FlowLayout());

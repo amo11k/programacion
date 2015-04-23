@@ -25,6 +25,7 @@ import javax.swing.border.EmptyBorder;
 
 import com.toedter.calendar.JDateChooser;
 import com.toedter.components.JSpinField;
+import java.awt.Toolkit;
 
 public class Reserva extends JFrame {
 
@@ -39,9 +40,10 @@ public class Reserva extends JFrame {
 	public JSpinField spinInit;
 	private JSpinField spinFin;
 	public int c;
+	public final int HORAS_DIA = 24;
 	public static double precio;
 	public final double TARIFA = 5.15;
-	DecimalFormat formatPrice = new DecimalFormat("#,##");
+	DecimalFormat formatPrice = new DecimalFormat("#.##");
 
 	/**
 	 * Launch the application.
@@ -63,11 +65,13 @@ public class Reserva extends JFrame {
 	 * Create the frame.
 	 */
 	public Reserva() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(
+				Reserva.class.getResource("/com/amo11k/hotel/img/27938.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Realizar reserva");
 		setBounds(100, 100, 450, 300);
 		pane = new JPanel();
-		pane.setBackground(new Color(205, 133, 63));
+		pane.setBackground(new Color(233, 150, 122));
 		pane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(pane);
 		pane.setLayout(null);
@@ -155,7 +159,7 @@ public class Reserva extends JFrame {
 			Error error = new Error();
 			error.setVisible(true);
 			error.setLocationRelativeTo(null);
-		}else{
+		} else {
 			precio = getPrice();
 			write();
 			Dialog confim = new Dialog();
@@ -168,7 +172,7 @@ public class Reserva extends JFrame {
 		try {
 			out = new FileWriter(hist, true);
 			in = new BufferedReader(new FileReader(hist));
-			
+
 			int n = 0;
 			n = ((int) (Math.random() * 9999));
 			out.write(n + ";");
@@ -181,7 +185,7 @@ public class Reserva extends JFrame {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			System.out.println("ERROR ARCHIVO");
-		}finally{
+		} finally {
 			try {
 				out.close();
 			} catch (IOException e) {
@@ -190,17 +194,18 @@ public class Reserva extends JFrame {
 			}
 		}
 	}
-	
-	public double getPrice(){
+
+	public double getPrice() {
 		c = comboBox.getSelectedIndex();
+		int indice;
 		if (spinInit.getValue() > spinFin.getValue()) {
-			precio = (spinInit.getValue() - spinFin.getValue()) * TARIFA
-					* (c + 1);
+			indice = HORAS_DIA - (spinInit.getValue() - spinFin.getValue());
+			precio = indice * TARIFA * (c + 1);
 		} else {
 			precio = (spinFin.getValue() - spinInit.getValue()) * TARIFA
 					* (c + 1);
 		}
 		return precio;
 	}
-	 
+
 }

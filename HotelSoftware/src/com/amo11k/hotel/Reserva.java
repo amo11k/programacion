@@ -11,6 +11,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.Date;
 
 import javax.swing.DefaultComboBoxModel;
@@ -38,8 +39,9 @@ public class Reserva extends JFrame {
 	public JSpinField spinInit;
 	private JSpinField spinFin;
 	public int c;
-	public double precio;
+	public static double precio;
 	public final double TARIFA = 5.15;
+	DecimalFormat formatPrice = new DecimalFormat("#,##");
 
 	/**
 	 * Launch the application.
@@ -80,7 +82,7 @@ public class Reserva extends JFrame {
 		comboBox.setToolTipText("Elija tipo");
 		comboBox.setMaximumRowCount(3);
 		comboBox.setModel(new DefaultComboBoxModel(new String[] { "Standar",
-				"Lujo", "Lujo shhh" }));
+				"Lujo", "LujoShh" }));
 		comboBox.setBounds(269, 74, 121, 25);
 		pane.add(comboBox);
 
@@ -166,6 +168,7 @@ public class Reserva extends JFrame {
 		try {
 			out = new FileWriter(hist, true);
 			in = new BufferedReader(new FileReader(hist));
+			
 			int n = 0;
 			n = ((int) (Math.random() * 9999));
 			out.write(n + ";");
@@ -173,7 +176,7 @@ public class Reserva extends JFrame {
 			out.write(date.toString() + ";");
 			out.write("Hora de inicio " + spinInit.getValue() + ":00;");
 			out.write("Hora fin " + spinFin.getValue() + ":00;");
-			out.write("Precio " + precio + "€;");
+			out.write("Precio " + formatPrice.format(precio) + "€;");
 			out.write("\n");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -199,4 +202,5 @@ public class Reserva extends JFrame {
 		}
 		return precio;
 	}
+	 
 }

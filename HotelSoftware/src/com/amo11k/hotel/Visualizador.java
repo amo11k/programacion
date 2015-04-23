@@ -73,7 +73,7 @@ public class Visualizador extends JFrame {
 				}
 			}
 		});
-		btnLeer.setBounds(697, 11, 89, 23);
+		btnLeer.setBounds(647, 27, 89, 23);
 		pane.add(btnLeer);
 		
 		JButton btnSalir = new JButton("SALIR");
@@ -82,7 +82,7 @@ public class Visualizador extends JFrame {
 				dispose();
 			}
 		});
-		btnSalir.setBounds(697, 486, 89, 23);
+		btnSalir.setBounds(647, 90, 89, 23);
 		pane.add(btnSalir);
 		
 		JScrollPane scrollPane = new JScrollPane(txtVisu);

@@ -8,8 +8,11 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.text.DecimalFormat;
+
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
@@ -17,7 +20,7 @@ public class Dialog extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	public JTextField textField;
-	public double prex;
+	private DecimalFormat formatPrice = new DecimalFormat("#.##");
 
 	/**
 	 * Create the dialog.
@@ -38,7 +41,7 @@ public class Dialog extends JDialog {
 			textField.setEditable(false);
 			contentPanel.add(textField);
 			textField.setColumns(10);
-			textField.setText("€/h");
+			textField.setText(formatPrice.format(Reserva.precio)+"â‚¬/h");
 			
 		}
 		{

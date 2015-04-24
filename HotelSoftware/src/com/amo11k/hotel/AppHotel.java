@@ -35,7 +35,7 @@ public class AppHotel extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Room<Integer, Enum> hotelShhh = new Room<>();
+					
 					AppHotel frame = new AppHotel();
 					frame.setVisible(true);
 					frame.setLocationRelativeTo(null);

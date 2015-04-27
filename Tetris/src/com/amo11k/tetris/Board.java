@@ -136,12 +136,18 @@ public class Board extends JPanel {
 				if (tryToMove(currentShape, currentCol, currentRow + 1)) {
 					currentRow++;
 				} else {
+					if (currentRow == -1) {
+						gameOver();
+					}
+
 					movePieceToBoard(currentShape, matrix, currentRow,
 							currentCol);
+					deleteLines();
 					currentCol = 5;
-					currentRow = 1;
+					currentRow = -1;
 					currentShape = new Shape();
 					currentShape.SetRandomShape();
+
 				}
 				repaint();
 			}
@@ -174,6 +180,41 @@ public class Board extends JPanel {
 		if (colum + piece.minX() < 0) {
 			return false;
 		}
+		for (int i = 0; i < 4; i++) {
+			if (row + piece.getY(i) >= 0 && colum + piece.getX(i) >= 0) {
+				if (matrix[row + piece.getY(i)][colum + piece.getX(i)] != Tetrominos.NoShape) {
+					return false;
+				}
+			}
+		}
+
 		return true;
+	}
+
+	public void gameOver() {
+		timer.stop();
+		Dialog gameOver = new Dialog();
+		gameOver.setVisible(true);
+	}
+
+	public void checkLines() {
+		int row = 0;
+		int count = 0;
+		for (int i = 0; i < ROWS; i++) {
+			for (int j = 0; j < COLUMS; j++) {
+				if (matrix[i][j] != Tetrominos.NoShape) {
+					count++;
+				}
+			}
+			if (count == COLUMS) {
+				for (int j = 0; j < COLUMS; j++) {
+					matrix[i][j] = Tetrominos.NoShape;
+				}
+			}
+		}
+	}
+
+	public void deleteLines() {
+		// for (i)
 	}
 }

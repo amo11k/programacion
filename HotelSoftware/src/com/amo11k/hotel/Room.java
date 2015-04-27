@@ -41,6 +41,7 @@ public class Room {
 		}
 		return kindRoom;
 	}
+	
 
 	public int getTypeInt() {
 		return typeRoom;
@@ -70,7 +71,7 @@ public class Room {
 	}
 
 	public String toString() {
-		return "Nº" + numRoom + ";T" + typeRoom + ";" + getSmoke();
+		return "Nº" + numRoom + ";T" + getType(getTypeInt()) + ";" + getSmoke();
 	}
 
 	public static void main(String[] args) {

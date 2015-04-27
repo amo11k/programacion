@@ -70,9 +70,9 @@ public class AppHotel extends JFrame {
 		JButton btnReservar = new JButton("RESERVAR");
 		btnReservar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Reserva frameReserva = new Reserva();
-				frameReserva.setVisible(true);
-				frameReserva.setLocationRelativeTo(null);
+				Reserva r = new Reserva();
+				r.setVisible(true);
+				r.setLocationRelativeTo(null);
 			}
 		});
 		btnReservar.setBounds(10, 430, 150, 80);

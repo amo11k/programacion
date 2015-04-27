@@ -161,8 +161,10 @@ public class Reserva extends JFrame {
 		System.out.println(type);
 		for (int i = 0; i < NUM_ROOMS; i++) {
 			r = Hotel.getRoomAt(i);
-			if ((r.getTypeInt() == type) && (r.getDisponible() == true)) 
-					r.setDisponible(false);
+			if ((r.getTypeInt() == type) && (r.getDisponible() == true)){
+				r.setDisponible(false);
+				break;
+			}			
 		}
 		return r;
 	}

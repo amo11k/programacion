@@ -29,13 +29,14 @@ public class AppHotel extends JFrame {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		/*Habitacion hab = new Habitacion();
-		hab.printRooms();*/
-		
+		/*
+		 * Habitacion hab = new Habitacion(); hab.printRooms();
+		 */
+
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					
+
 					AppHotel frame = new AppHotel();
 					frame.setVisible(true);
 					frame.setLocationRelativeTo(null);
@@ -50,8 +51,11 @@ public class AppHotel extends JFrame {
 	 * Create the frame.
 	 */
 	public AppHotel() {
+		Reserva r = new Reserva();
+		Hotel h = new Hotel();
 		setType(Type.POPUP);
-		setIconImage(Toolkit.getDefaultToolkit().getImage(AppHotel.class.getResource("/com/amo11k/hotel/img/27938.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(
+				AppHotel.class.getResource("/com/amo11k/hotel/img/27938.png")));
 		setForeground(Color.RED);
 		setTitle("Amo11k Hotel");
 		setFont(new Font("Bebas", Font.PLAIN, 16));
@@ -62,7 +66,7 @@ public class AppHotel extends JFrame {
 		pane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(pane);
 		pane.setLayout(null);
-		
+
 		JButton btnReservar = new JButton("RESERVAR");
 		btnReservar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -73,7 +77,7 @@ public class AppHotel extends JFrame {
 		});
 		btnReservar.setBounds(10, 430, 150, 80);
 		pane.add(btnReservar);
-		
+
 		JButton btnVisor = new JButton("VISUALIZAR");
 		btnVisor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -84,7 +88,7 @@ public class AppHotel extends JFrame {
 		});
 		btnVisor.setBounds(624, 430, 150, 80);
 		pane.add(btnVisor);
-		
+
 		JButton cat = new JButton("Ver CAT\u00C1LOGO");
 		cat.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -98,16 +102,16 @@ public class AppHotel extends JFrame {
 		cat.setBackground(new Color(144, 238, 144));
 		cat.setBounds(327, 493, 150, 56);
 		pane.add(cat);
-		
+
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setBackground(new Color(255, 240, 245));
 		menuBar.setBounds(0, 0, 786, 21);
 		pane.add(menuBar);
-		
+
 		JMenu mnArchivo = new JMenu("Archivo");
 		mnArchivo.setForeground(new Color(0, 0, 0));
 		menuBar.add(mnArchivo);
-		
+
 		JMenuItem mntmSalir = new JMenuItem("Salir");
 		mntmSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -115,16 +119,18 @@ public class AppHotel extends JFrame {
 			}
 		});
 		mnArchivo.add(mntmSalir);
-		
+
 		JMenu mnAbout = new JMenu("About");
 		mnAbout.setForeground(new Color(0, 0, 0));
 		menuBar.add(mnAbout);
-		
+
 		JMenuItem mntmAmokHotel = new JMenuItem("Amo11k Hotel");
 		mnAbout.add(mntmAmokHotel);
-		
+
 		JLabel ttlPane = new JLabel("Hotel SHHH");
-		ttlPane.setIcon(new ImageIcon(AppHotel.class.getResource("/com/amo11k/hotel/img/16-hotel-las-palmas-sercotel-cristina-las-palmas-habitacion.jpg")));
+		ttlPane.setIcon(new ImageIcon(
+				AppHotel.class
+						.getResource("/com/amo11k/hotel/img/16-hotel-las-palmas-sercotel-cristina-las-palmas-habitacion.jpg")));
 		ttlPane.setFont(new Font("Andalus", Font.ITALIC, 18));
 		ttlPane.setHorizontalAlignment(SwingConstants.CENTER);
 		ttlPane.setBounds(0, 0, 786, 560);

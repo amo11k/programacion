@@ -44,27 +44,14 @@ public class Reserva extends JFrame {
 	public static double precio;
 	public final double TARIFA = 5.15;
 	DecimalFormat formatPrice = new DecimalFormat("#.##");
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Reserva frame = new Reserva();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	private final static int NUM_ROOMS = 40;
+	private Hotel hotel;
 
 	/**
 	 * Create the frame.
 	 */
 	public Reserva() {
+		hotel = new Hotel();
 		setIconImage(Toolkit.getDefaultToolkit().getImage(
 				Reserva.class.getResource("/com/amo11k/hotel/img/27938.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -168,15 +155,35 @@ public class Reserva extends JFrame {
 		}
 	}
 
+	private Room asignarRoom(Hotel h) {
+		Room r = null;
+		int type = comboBox.getSelectedIndex();
+		System.out.println(type);
+		for (int i = 0; i < NUM_ROOMS; i++) {
+			r = Hotel.getRoomAt(i);
+			if ((r.getTypeInt() == type) && (r.getDisponible() == true)) 
+					r.setDisponible(false);
+		}
+		return r;
+	}
+
+	/*
+	 * private Room asignarRoom() { Room r = new Room(); int type =
+	 * comboBox.getSelectedIndex(); for (int i = 0; i<NUM_ROOMS;i++){ if
+	 * (Hotel.getRoomAt(i).getTypeInt() == type &&
+	 * !Hotel.getRoomAt(i).getSmokeBoolean()){ if
+	 * (Hotel.getRoomAt(i).getDisponible() != false){ r = Hotel.getRoomAt(i);
+	 * Hotel.getRoomAt(i).setDisponible(false); } } } return r;
+	 * 
+	 * }
+	 */
+
 	public void write() {
 		try {
+			Room r = asignarRoom(hotel);
 			out = new FileWriter(hist, true);
-			in = new BufferedReader(new FileReader(hist));
 
-			int n = 0;
-			n = ((int) (Math.random() * 9999));
-			out.write(n + ";");
-			out.write("TYPE " + c + ";");
+			out.write(r.toString() + ";");
 			out.write(date.toString() + ";");
 			out.write("Hora de inicio " + spinInit.getValue() + ":00;");
 			out.write("Hora fin " + spinFin.getValue() + ":00;");

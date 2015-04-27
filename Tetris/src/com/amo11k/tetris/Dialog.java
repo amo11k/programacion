@@ -32,10 +32,11 @@ public class Dialog extends JDialog {
 	 * Create the dialog.
 	 */
 	public Dialog() {
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 250, 250);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setLayout(new FlowLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		{
 			JLabel lblGameOver = new JLabel("GAME OVER");
@@ -49,7 +50,9 @@ public class Dialog extends JDialog {
 				JButton okButton = new JButton("OK");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						dispose();
+						Tetris tetris = new Tetris();
+						tetris.setVisible(true);
+						tetris.setLocationRelativeTo(null);
 					}
 				});
 				okButton.setActionCommand("OK");

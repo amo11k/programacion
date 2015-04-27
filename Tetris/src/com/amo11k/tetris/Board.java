@@ -20,6 +20,9 @@ public class Board extends JPanel {
 	private Timer timer;
 	public MyKeyAdapter keyAdapter;
 	public boolean gameOver;
+	public int deltaTime = 150;
+	private Score score;
+	private static String scoreString = null;
 
 	class MyKeyAdapter extends KeyAdapter {
 		@Override
@@ -34,6 +37,9 @@ public class Board extends JPanel {
 					currentCol++;
 				break;
 			case KeyEvent.VK_UP:
+				while (tryToMove(currentShape, currentCol, currentRow + 1))
+					currentRow++;
+					Tetris.scoreLabel.setText(Score.fallPoint());
 
 				break;
 			case KeyEvent.VK_DOWN:
@@ -56,7 +62,8 @@ public class Board extends JPanel {
 		}
 	}
 
-	public Board() {
+	public Board(Score score) {
+		this.score = score;
 		for (int i = 0; i < ROWS; i++) {
 			for (int j = 0; j < COLUMS; j++) {
 				matrix[i][j] = Tetrominos.NoShape;
@@ -129,7 +136,7 @@ public class Board extends JPanel {
 		addKeyListener(keyAdapter);
 		gameOver = false;
 
-		timer = new Timer(500, new ActionListener() {
+		timer = new Timer(deltaTime, new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -195,26 +202,35 @@ public class Board extends JPanel {
 		timer.stop();
 		Dialog gameOver = new Dialog();
 		gameOver.setVisible(true);
+		gameOver.setLocationRelativeTo(null);
+
 	}
 
-	public void checkLines() {
-		int row = 0;
+	public void deleteLines() {
 		int count = 0;
 		for (int i = 0; i < ROWS; i++) {
+			count = 0;
 			for (int j = 0; j < COLUMS; j++) {
 				if (matrix[i][j] != Tetrominos.NoShape) {
 					count++;
+					
 				}
 			}
 			if (count == COLUMS) {
 				for (int j = 0; j < COLUMS; j++) {
 					matrix[i][j] = Tetrominos.NoShape;
+					Tetris.scoreLabel.setText(score.incrementScore());
 				}
+				downLines(i);
 			}
 		}
 	}
 
-	public void deleteLines() {
-		// for (i)
+	public void downLines(int i) {
+		for (int r = i; r > 0; r--) {
+			for (int c = 0; c < COLUMS; c++) {
+				matrix[r][c] = matrix[(r - 1)][c];
+			}
+		}
 	}
 }

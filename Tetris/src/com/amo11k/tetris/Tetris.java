@@ -11,10 +11,13 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
 
 public class Tetris extends JFrame {
 
 	private JPanel contentPane;
+	public static JLabel scoreLabel;
+	
 	
 
 	/**
@@ -26,6 +29,7 @@ public class Tetris extends JFrame {
 				try {
 					Tetris frame = new Tetris();
 					frame.setVisible(true);
+					frame.setLocationRelativeTo(null);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -45,8 +49,17 @@ public class Tetris extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		
-		Board panel = new Board();
+		Score score = new Score();
+		contentPane.add(score, BorderLayout.SOUTH);
+		score.setVisible(true);
+		
+		Board panel = new Board(score);
+		
+		scoreLabel = new JLabel("0");
+		score.add(scoreLabel);
 		contentPane.add(panel, BorderLayout.CENTER);
+		
+		
 	}
 
 }

@@ -47,9 +47,10 @@ public class Dialog extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton okButton = new JButton("OK");
+				JButton okButton = new JButton("Replay");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
+						Board.resetDelay();
 						Tetris tetris = new Tetris();
 						tetris.setVisible(true);
 						tetris.setLocationRelativeTo(null);
@@ -60,9 +61,10 @@ public class Dialog extends JDialog {
 				getRootPane().setDefaultButton(okButton);
 			}
 			{
-				JButton cancelButton = new JButton("Cancel");
+				JButton cancelButton = new JButton("Salir");
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
+						System.exit(1);
 						dispose();
 					}
 				});

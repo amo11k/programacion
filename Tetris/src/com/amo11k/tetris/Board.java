@@ -20,7 +20,7 @@ public class Board extends JPanel {
 	private Timer timer;
 	public MyKeyAdapter keyAdapter;
 	public boolean gameOver;
-	public int deltaTime = 150;
+	public static int deltaTime = 500;
 	private Score score;
 	private static String scoreString = null;
 
@@ -143,7 +143,7 @@ public class Board extends JPanel {
 				if (tryToMove(currentShape, currentCol, currentRow + 1)) {
 					currentRow++;
 				} else {
-					if (currentRow == -1) {
+					if (currentRow <= -1) {
 						gameOver();
 					}
 
@@ -207,6 +207,7 @@ public class Board extends JPanel {
 	}
 
 	public void deleteLines() {
+		int deletes=0;
 		int count = 0;
 		for (int i = 0; i < ROWS; i++) {
 			count = 0;
@@ -218,8 +219,14 @@ public class Board extends JPanel {
 			}
 			if (count == COLUMS) {
 				for (int j = 0; j < COLUMS; j++) {
+					deletes++;
 					matrix[i][j] = Tetrominos.NoShape;
 					Tetris.scoreLabel.setText(score.incrementScore());
+					if (deletes==10){
+						deltaTime=deltaTime-10;
+						timer.setDelay(deltaTime);
+					}
+					
 				}
 				downLines(i);
 			}
@@ -232,5 +239,9 @@ public class Board extends JPanel {
 				matrix[r][c] = matrix[(r - 1)][c];
 			}
 		}
+	}
+	
+	public static void resetDelay(){
+		deltaTime=500;
 	}
 }

@@ -1,6 +1,5 @@
 package com.amo11k.tetris;
 
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class Score extends JPanel {

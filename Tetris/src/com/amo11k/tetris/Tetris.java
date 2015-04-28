@@ -17,6 +17,7 @@ public class Tetris extends JFrame {
 
 	private JPanel contentPane;
 	public static JLabel scoreLabel;
+	public static Tetris frame;
 	
 	
 
@@ -27,7 +28,7 @@ public class Tetris extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Tetris frame = new Tetris();
+					frame = new Tetris();
 					frame.setVisible(true);
 					frame.setLocationRelativeTo(null);
 				} catch (Exception e) {

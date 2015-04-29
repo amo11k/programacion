@@ -11,18 +11,20 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class Board extends JPanel {
-	public final int ROWS = 22;
-	public final int COLUMS = 10;
+	public final static int ROWS = 22;
+	public final static int COLUMS = 10;
 	public Shape currentShape;
 	public int currentCol;
 	public int currentRow;
-	public Tetrominos[][] matrix = new Tetrominos[ROWS][COLUMS];
+	public static Tetrominos[][] matrix = new Tetrominos[ROWS][COLUMS];
 	private Timer timer;
 	public MyKeyAdapter keyAdapter;
 	public boolean gameOver;
 	public static int deltaTime = 500;
 	private Score score;
 	private static String scoreString = null;
+	private int count=0;
+	private Timer timer2;
 
 	class MyKeyAdapter extends KeyAdapter {
 		@Override
@@ -39,7 +41,7 @@ public class Board extends JPanel {
 			case KeyEvent.VK_UP:
 				while (tryToMove(currentShape, currentCol, currentRow + 1))
 					currentRow++;
-					Tetris.scoreLabel.setText(Score.fallPoint());
+				Tetris.scoreLabel.setText(Score.fallPoint());
 
 				break;
 			case KeyEvent.VK_DOWN:
@@ -145,6 +147,9 @@ public class Board extends JPanel {
 				} else {
 					if (currentRow <= -1) {
 						gameOver();
+						Dialog gameOver = new Dialog();
+						gameOver.setVisible(true);
+						gameOver.setLocationRelativeTo(null);
 					}
 
 					movePieceToBoard(currentShape, matrix, currentRow,
@@ -200,21 +205,35 @@ public class Board extends JPanel {
 
 	public void gameOver() {
 		timer.stop();
-		Dialog gameOver = new Dialog();
-		gameOver.setVisible(true);
-		gameOver.setLocationRelativeTo(null);
+		currentShape.SetRandomShape();
+		count=0;
+		timer2 = new Timer(10, new ActionListener() {
+		
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int columna = count % COLUMS;
+				int fila = count / COLUMS;
+				matrix[fila][columna] = currentShape.getShape();
+				count++;
+				repaint();
+				if (count==ROWS*COLUMS){
+					timer2.stop();
+				}
+			}
 
+		});
+		timer2.start();
 	}
 
 	public void deleteLines() {
-		int deletes=0;
+		int deletes = 0;
 		int count = 0;
 		for (int i = 0; i < ROWS; i++) {
 			count = 0;
 			for (int j = 0; j < COLUMS; j++) {
 				if (matrix[i][j] != Tetrominos.NoShape) {
 					count++;
-					
+
 				}
 			}
 			if (count == COLUMS) {
@@ -222,11 +241,11 @@ public class Board extends JPanel {
 					deletes++;
 					matrix[i][j] = Tetrominos.NoShape;
 					Tetris.scoreLabel.setText(score.incrementScore());
-					if (deletes==10){
-						deltaTime=deltaTime-10;
+					if (deletes == 10) {
+						deltaTime = deltaTime - 10;
 						timer.setDelay(deltaTime);
 					}
-					
+
 				}
 				downLines(i);
 			}
@@ -240,8 +259,8 @@ public class Board extends JPanel {
 			}
 		}
 	}
-	
-	public static void resetDelay(){
-		deltaTime=500;
+
+	public static void resetDelay() {
+		deltaTime = 500;
 	}
 }
